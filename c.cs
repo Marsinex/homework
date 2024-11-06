@@ -79,12 +79,15 @@ namespace csharp
             FileStream f = new FileStream("toys.xml", FileMode.Open, FileAccess.ReadWrite, FileShare.Read);
             toys = (List<toy>)xml.Deserialize(f);
             uint maxPrice = 0;
-            for(int i = 0; i < toys.Count; i++)
-                if (toys[i].minAge <= 2 && toys[i].maxAge>=3)
-                    if (toys[i].price > maxPrice) maxPrice = toys[i].price;
+            int index = 0;
             for (int i = 0; i < toys.Count; i++)
                 if (toys[i].minAge <= 2 && toys[i].maxAge >= 3)
-                    if (toys[i].price == maxPrice) Console.WriteLine(toys[i].name);
+                    if (toys[i].price > maxPrice)
+                    {
+                        maxPrice = toys[i].price;
+                        index=i;
+                    }
+            Console.WriteLine(toys[index].name);
             Console.WriteLine(maxPrice);
             f.Close();
         }
