@@ -29,7 +29,7 @@ namespace csharp
                 }
             r.Add(a);
         }
-        static public List<T> xor<T>(List<T> a,List<T> b) where T : IComparable
+        static public List<T> xor<T>(List<T> a,List<T> b)
         {
             List<T> result = new List<T>();
             for (int i=0;i<a.Count; i++)
@@ -38,7 +38,7 @@ namespace csharp
                 toggle<T>(result, b[i]);
             return result;
         }
-        static public int sos<T>(LinkedList<T> a) where T : IComparable
+        static public int sos<T>(LinkedList<T> a)
         {
             if (a.Count < 3) return 0;
             int c = 0;
