@@ -1,4 +1,5 @@
 ﻿using System.Xml.Serialization;
+using System.Collections.Generic;
 namespace csharp
 {
     [Serializable]
@@ -18,33 +19,33 @@ namespace csharp
     };
     static internal class c
     {
-        static private void toggle(List<int> r,int a)
+        static private void toggle<T>(List<T> r,T a)
         {
             for(int i = 0; i < r.Count; i++)
-                if (r[i] == a)
+                if (r[i].Equals(a))
                 {
                     r.RemoveAt(i);
                     return;
                 }
             r.Add(a);
         }
-        static public List<int> xor(List<int> a,List<int> b)
+        static public List<T> xor<T>(List<T> a,List<T> b)
         {
-            List<int> result = new List<int>();
+            List<T> result = new List<T>();
             for (int i=0;i<a.Count; i++)
-                toggle(result, a[i]);
+                toggle<T>(result, a[i]);
             for (int i = 0; i < b.Count; i++)
-                toggle(result, b[i]);
+                toggle<T>(result, b[i]);
             return result;
         }
-        static public int sos(LinkedList<int> a)
+        static public int sos<T>(LinkedList<T> a) where T : IComparable
         {
             if (a.Count < 3) return 0;
             int c = 0;
-            LinkedListNode<int> t = a.First.Next;
+            LinkedListNode<T> t = a.First.Next;
             while (t != a.Last)
             {
-                if (t.Previous.Value == t.Next.Value) c++;
+                if (t.Previous.Value.Equals(t.Next.Value)) c++;
                 t = t.Next;
             }
             return c;
