@@ -29,7 +29,7 @@ namespace csharp
                 }
             r.Add(a);
         }
-        static public List<T> xor<T>(List<T> a,List<T> b)
+        static public List<T> xor<T>(List<T> a,List<T> b) where T : IComparable
         {
             List<T> result = new List<T>();
             for (int i=0;i<a.Count; i++)
