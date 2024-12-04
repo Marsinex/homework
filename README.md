@@ -1,172 +1,178 @@
 # Задание 1
 ## Постановка задачи
-Составить программу, которая формирует список L включив в него по одному разу элементы,
-которые входят в один из списков L1 и L2, но в то же время не входит в другой из них, используя класс List.
-## Алгоритм решения
-1. Пишем функцию "переключения" элемента, она добавляет входной элемент в список если такового там нет, если есть то удаляет его.
-2. Проходимся по списку L1 и вызываем функцию переключения на каждый его элемент.
-3. Повторяем так же с L2 и возвращаем результат
-## Тестирование.
-![image](https://github.com/user-attachments/assets/2aae8e57-48a2-4774-97dc-ffce32158cbe)
-## Код.
-```c#
-static private void toggle(List<int> r,int a)
-{
-    for(int i = 0; i < r.Count; i++)
-        if (r[i] == a)//если нашли
-        {
-            r.RemoveAt(i);//то "выключаем"
-            return;//и возвращаемся
-        }
-    r.Add(a);
-}
-static public List<int> xor(List<int> a,List<int> b)
-{
-    List<int> result = new List<int>();
-    for (int i=0;i<a.Count; i++)
-        toggle(result, a[i]);
-    for (int i = 0; i < b.Count; i++)
-        toggle(result, b[i]);
-    return result;
-}
-```
-# Задание 2
-## Постановка задачи
-подсчитывает количество элементов списка L, у которых равные «соседи»;
-## Алгоритм решения
-1. Если список меньше 3 в длинну то это слишком короткий список чтоб там были соседи.
-2. Пробегаемся по списку сравнивая следующее и предыдущие числа.
-3. Если числа равны то прибавляем к счётчику равных соседей еденицу.
-## Тестирование.
-Входной список: 1, 2, 3 .. 7, 8, 9, 8. Результат: ![image](https://github.com/user-attachments/assets/6043f67f-5b10-4921-9b88-6d7639818cd0)
-## Код.
-```c#
-static public int sos(LinkedList<int> a)
-        {
-            if (a.Count < 3) return 0;//если всего 2 элемента, то нет элемента с двумя соседями
-            int c = 0;
-            LinkedListNode<int> t = a.First.Next;
-            while (t != a.Last)//бежим до последнего
-            {
-                if (t.Previous.Value == t.Next.Value) c++;
-                t = t.Next;
-            }
-            return c;
-        }
-```
-# Задание 3
-## Постановка задачи.
-**Используя класс HashSet!** Есть перечень названий телевизионных шоу. Определить для каждого наименования шоу, какие
-из них нравятся всем n телезрителям, какие — некоторым из телезрителей, и какие — никому из
-телезрителей.
-## Казус
-Я так и не понял что надо было сделать.
-# Задание 4
-## Постановка задачи
-**Используя класс HashSet!** Файл содержит текст на русском языке. Какие цифры встречаются в тексте?
-## Алгоритм решения
-1. На вход принимаем файловый поток.
-2. Создаём пустой хэш-набор.
-3. Циклом читаем все символы в файле.
-4. Каждый символ пытаемся преобразовать в цифру, если это удаётся то добавляем эту цифру в хэш-набор.
-5. Возвращаем набор.
-## Тестирование.
-![image](https://github.com/user-attachments/assets/2d64ca65-4d43-40ee-a017-2f3c0d11cb35)
-## Код.
-```c#
-static public HashSet<int> cif(StreamReader f)
-{
-    int t;
-    HashSet<int> r = new HashSet<int>(); 
-    while (f.Peek() != -1)//пока не закончился файл
-    {
-        t=f.Read()-'0';//в цифру!
-        if(t<10&&t>-1)r.Add(t);
-    }
-    return r;
-}
-```
-# Задание 5
-## Постановка задачи
-**Используя класс Dictionary!** Имеется список людей с указанием их фамилии, имени и даты рождения. Напишите программу,
-которая будет определять самого старшего человека из этого списка и выводить его фамилию и
-имя, а если имеется несколько самых старших людей с одинаковой датой рождения, то
-определять их количество.
-На вход программе в первой строке подается количество людей в списке N. В каждой из
-последующих N строк находится информация в следующем формате:
-<Фамилия> <Имя> <Дата рождения>
-где <Фамилия> – строка, состоящая не более, чем из 20 символов без пробелов, <Имя> – строка,
-состоящая не более, чем из 20 символов без пробелов, <Дата рождения> – строка, имеющая вид
-ДД.ММ.ГГГГ, где ДД – двузначное число от 01 до 31, ММ – двузначное число от 01 до 12, ГГГГ –
-четырехзначное число от 1800 до 2100.
-Пример входной строки:
-Иванов Сергей 27.03.1993
-Программа должна вывести фамилию и имя самого старшего человека в списке.
-Пример выходных данных:
-Иванов Сергей
-Если таких людей, несколько, то программа должна вывести их количество. Пример вывода в
-этом случае:
-3
+Разработать консольное приложение с дружественным интерфейсом с возможностью выбора
+заданий. Приложение должно выполнять следующие функции:
+1. Чтение базы данных из excel файла.
+2. Просмотр базы данных.
+3. Удаление элементов (по ключу).
+4. Корректировка элементов (по ключу).
+5. Добавление элементов.
+6. Реализация 4 запросов (формулировки запросов придумать самостоятельно и отразить в
+отчёте, можно использовать запрос, данный в примере):
+1. 1 запрос с обращением к одной таблице
+2. 1 запрос с обращением к двум таблицам
+3. 2 запроса с обращением к трем таблицам
+2 запроса должны возвращать перечень, 2 запроса одно значение.
+7. Во время всего сеанса работы ведется полное протоколирование действий в текстовом
+файле (в начале сеанса запросить, будет ли это новый файл или дописывать в уже
+существующий). 
+___
+Элементами базы данных являются объекты классов согласно вашему варианту. Содержание классов
+определить самостоятельно и отразить в отчете (в классах должны присутствовать свойства,
+конструкторы, перегруженный метод ToString). Весь функционал приложения реализовать в виде
+методов вспомогательного класса с помощью LINQ-запросов.
+Предусмотреть обработку возможных ошибок при работе программы.
 
-## Нелогичность
-Не понял зачем нужно использовать класс Dictionary, что нужно использовать в качестве ключа и зачем?
-# Задание 6
-## Постановка задачи
-Файл содержит сведения об игрушках: название игрушки, ее стоимость в рублях и возрастные
-границы (например, игрушка может предназначаться для детей от двух до пяти лет). Получить
-название самой дорогой игрушки, подходящей детям двух-трех лет.
 ## Алгоритм решения
-1. Первая функция нужна лишь для записи в файл исходных значений.
-2. Подгатавливаем всё для чтения из файла и считываем значения в список игрушек.
-3. Пробегаемся по списку в поисках самой дорогой игрушки запоминая индекс и цену последней самой дорогой игрушки.
-4. Выводим самую дорогую игрушку.
+1. Создаём WPF окно.
+2. Добавляем в него нужные нам элементы интерфейса.
+3. Создаём нужные методы для взаимодействия пользователя с программой.
+4. Инициализируем "ядро" для работы с БД в виде excel.
+5. Создаём сам класс для работы с БД.
+6. Создаём структуры для хранения данных из БД.
+7. Подгружаем БД в словари.
+8. Создаём функцию вывода первых 50 строчек из БД.
+9. Пишем функцию для удаления/добавления/корректирования таблицы.
+10. Создаём функцию для записи логов, вызываем при любом действии.
+11. Не забываем сохранить логи после закрытия программы.
 ## Тестирование.
-![image](https://github.com/user-attachments/assets/4c184101-9964-4926-8fd0-67ce6cbd845b)
+
 ## Код.
+Ниже фрагменты кода, весь код в файлах.
+___
+Куда записывать логи?
 ```c#
- [Serializable]
-public struct toy {
-public string name;
-public uint price;
-public uint minAge;
-public uint maxAge;
-public toy(string n,uint p,uint l,uint h)//создание игрушки
+basa b;
+public MainWindow()
 {
-    name = n;
-    price = p;
-    minAge = l;
-    maxAge = h;
+    MessageBoxResult r= MessageBox.Show("Писать логи в новый файл?","Логи", MessageBoxButton.YesNo, MessageBoxImage.Question);
+    b = new basa(r==MessageBoxResult.Yes);
+    InitializeComponent();
 }
-};
-static public void createToys()
+```
+Операции над таблицами.
+```C#
+private void Button_Click(object sender, RoutedEventArgs e)
 {
-    List<toy> toys = new List<toy>();//список игрушек
-    toys.Add(new toy("dall",15,3,9));
-    toys.Add(new toy("ball", 12, 1, 27));
-    toys.Add(new toy("soldier", 13, 6, 12));
-    toys.Add(new toy("ula", 18, 1, 7));
-    XmlSerializer xml = new XmlSerializer(toys.GetType());
-    FileStream f = new FileStream("toys.xml", FileMode.Create, FileAccess.ReadWrite, FileShare.Read);
-    xml.Serialize(f, toys);//запихиваем в XML
-    f.Close();
+    try
+    {
+        b.Dosmth(choise.SelectedIndex, delat.SelectedIndex, int.Parse(t1.Text), t2.Text, t3.Text, t4.Text, t5.Text);
+    }
+    catch
+    {
+        MessageBox.Show("Чтото ты напутал с вводом, проверь на всякий", "Ошиблися", MessageBoxButton.OK, MessageBoxImage.Warning);
+    }
+    ComboBox_SelectionChanged(null, null);//обновляю выведенную таблицу
+
 }
-static public void t6()
+```
+Сохранение логов и индекс обязанный быть числом.
+```C#
+private void Window_Closing(object sender, CancelEventArgs e)
 {
-    List<toy> toys=new List<toy>();
-    XmlSerializer xml = new XmlSerializer(toys.GetType());
-    FileStream f = new FileStream("toys.xml", FileMode.Open, FileAccess.ReadWrite, FileShare.Read);
-    toys = (List<toy>)xml.Deserialize(f);//читаем XML
-    uint maxPrice = 0;
-    int index = 0;
-    for (int i = 0; i < toys.Count; i++)//ищем самую дорогую
-        if (toys[i].minAge <= 2 && toys[i].maxAge >= 3)
-            if (toys[i].price > maxPrice)
+    b.save();
+}
+private void t1_TextChanged(object sender, TextChangedEventArgs e)
+{
+    if (!int.TryParse(t1.Text,out int i)) t1.Text = "0";
+}
+```
+Структуры строк таблиц.
+```c#
+struct accaunt
+{
+    string name;
+    string date;
+    public accaunt(string n, string t)
+    {
+        name = n;
+        date = t;
+    }
+    override public string ToString()
+    {
+        return name + " " + date;
+    }
+
+}
+struct curs
+{
+    string letter;
+    float ko;
+    string name;
+    public curs(string l, float k, string n)
+    {
+        letter = l;
+        ko = k;
+        name = n;
+    }
+    override public string ToString()
+    {
+        return letter + " " + ko + " " + name;
+    }
+}
+struct income
+{
+    int aid;
+    int cid;
+    string date;
+    float sum;
+    public income(int aid, int cid, string date, float sum)
+    {
+        this.aid = aid;
+        this.cid = cid;
+        this.date = date;
+        this.sum = sum;
+    }
+    override public string ToString()
+    {
+        return aid + " " + cid + " " + date + " " + sum;
+    }
+}
+```
+Чтение БД.
+```c#
+public Dictionary<int, accaunt> acc;
+public Dictionary<int, curs> cur;
+public Dictionary<int, income> inc;
+StreamWriter log;
+public basa(bool logNew)
+{
+    Console.WriteLine(DateTime.Now.ToString());
+    if (logNew) log = new StreamWriter("log" + DateTime.Now.ToString().Replace(':','-').Replace('.','-') + ".txt");
+    else log = new StreamWriter("log.txt",true);
+    LinqToExcel.ExcelQueryFactory excelFile=null;
+    try { 
+        excelFile = new LinqToExcel.ExcelQueryFactory(@"LR6-var13.xls");
+        toLog("Открыта БД");
+    }
+    catch{
+        toLog("Не найдена база данных");
+        return;
+    }
+    var a = from shet in excelFile.Worksheet(0) select shet;
+    cur = a.ToDictionary(row => int.Parse(row[0].ToString()), row => new curs(row[1], float.Parse(row[2]), row[3]));
+    a = from shet in excelFile.Worksheet(1) select shet;
+    inc = a.ToDictionary(row => int.Parse(row[0].ToString()), row => new income(int.Parse(row[1]), int.Parse(row[2]), row[3], float.Parse(row[4])));
+    a = from shet in excelFile.Worksheet(2) select shet;
+    acc = a.ToDictionary(row => int.Parse(row[0].ToString()), row => new accaunt(row[1], row[2]));
+}
+```
+Вывод 50 элементов выбранной таблицы.
+```c#
+public string printDict<T>(Dictionary<int, T> d) where T : struct
+        {
+            string o = "";
+            if (d.Count < 50)
+                foreach (var i in d) o += i.Key + " " + i.Value + "\n";
+            else
             {
-                maxPrice = toys[i].price;
-                index=i;
+                int c = 0;
+                foreach (var i in d)
+                {
+                    if (c++ < 50) o += i.Key + " " + i.Value + "\n";
+                    else return o;
+                }
             }
-    Console.WriteLine(toys[index].name);
-    Console.WriteLine(maxPrice);
-    f.Close();
-}
+            return o;
+        }
 ```
