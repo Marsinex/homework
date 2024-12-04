@@ -36,6 +36,10 @@ ___
 10. Создаём функцию для записи логов, вызываем при любом действии.
 11. Не забываем сохранить логи после закрытия программы.
 ## Тестирование.
+![image](https://github.com/user-attachments/assets/8c0d5d61-8972-4ab1-b64a-ef3f0a2c1a85)
+![image](https://github.com/user-attachments/assets/f39fc8d8-654b-4c57-92da-52c5a8bbb0e4)
+![image](https://github.com/user-attachments/assets/f38d4992-b3c6-4525-b37a-002a856bdc84)
+![image](https://github.com/user-attachments/assets/4313cb8b-5c51-4e29-9bd3-c4e3a1e4f105)
 
 ## Код.
 Ниже фрагменты кода, весь код в файлах.
