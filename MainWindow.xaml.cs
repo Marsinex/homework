@@ -23,94 +23,50 @@ namespace WPFapp1
 {
     public partial class MainWindow : Window
     {
-        basa b;
+        basa a;
+        uint cur=100;
         public MainWindow()
         {
-            MessageBoxResult r= MessageBox.Show("Писать логи в новый файл?","Логи", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            b = new basa(r==MessageBoxResult.Yes);
+            a = new basa(123456);
             InitializeComponent();
+            updateLabel();
         }
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void updateLabel()
         {
-            display.Text = "";
-            switch (choise.SelectedIndex)
-            {
-                case 0:
-                    display.Text=b.printDict(b.cur);
-                    l1.Content = "ID";
-                    l2.Content = "Обозначение";
-                    l3.Content = "Курс";
-                    l4.Content = "Название";
-                    l5.Content = "";
-                    break;
-                case 1:
-                    display.Text = b.printDict(b.inc);
-                    l1.Content = "ID";
-                    l2.Content = "ID счёта";
-                    l3.Content = "ID валюты";
-                    l4.Content = "Дата";
-                    l5.Content = "Сумма";
-                    break;
-                case 2:
-                    display.Text = b.printDict(b.acc);
-                    l1.Content = "ID";
-                    l2.Content = "Имя";
-                    l3.Content = "Дата";
-                    l4.Content = "";
-                    l5.Content = "";
-                    break;
-            }
-        }
-        private void wannaDo(object sender, SelectionChangedEventArgs e)
-        {
-            switch (delat.SelectedIndex)
-            {
-                case 0://добавить
-                   
-                    l1.Visibility = Visibility.Hidden;
-                    l2.Visibility = Visibility.Visible;
-                    l3.Visibility = Visibility.Visible;
-                    l4.Visibility = Visibility.Visible;
-                    l5.Visibility = Visibility.Visible;
-                    break;
-                case 1://удалить
-                   
-                    l1.Visibility = Visibility.Visible;
-                    l2.Visibility = Visibility.Hidden;
-                    l3.Visibility = Visibility.Hidden;
-                    l4.Visibility = Visibility.Hidden;
-                    l5.Visibility = Visibility.Hidden;
-                    break;
-                case 2://редактировать
-                   
-                    l1.Visibility = Visibility.Visible;
-                    l2.Visibility = Visibility.Visible;
-                    l3.Visibility = Visibility.Visible;
-                    l4.Visibility = Visibility.Visible;
-                    l5.Visibility = Visibility.Visible;
-                    break;
-            }
+            mony.Content = a/100+" руб. "+a%100+" коп.";
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            a--;
+            updateLabel();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            a++;
+            updateLabel();
+        }
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            a += cur;
+            updateLabel();
+        }
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            a -= cur;
+            updateLabel();
+        }
+        private void some_TextChanged(object sender, TextChangedEventArgs e)
+        {
             try
             {
-                b.Dosmth(choise.SelectedIndex, delat.SelectedIndex, int.Parse(t1.Text), t2.Text, t3.Text, t4.Text, t5.Text);
+                cur=uint.Parse(some.Text);
             }
             catch
             {
-                MessageBox.Show("Чтото ты напутал с вводом, проверь на всякий", "Ошиблися", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("В поле денежных оборотов можно записывать только целые положительные числа обозначающие копейки","Error#pishikopeyki",MessageBoxButton.OK,MessageBoxImage.Error);
+                some.Text = "100";
             }
-            ComboBox_SelectionChanged(null, null);//обновляю выведенную таблицу
-
-        }
-        private void Window_Closing(object sender, CancelEventArgs e)
-        {
-            b.save();
-        }
-        private void t1_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (!int.TryParse(t1.Text,out int i)) t1.Text = "0";
         }
     }
 }
